@@ -236,6 +236,6 @@ class _RecordScreenState extends State<RecordScreen> {
       'description': description,
     });
 
-    fetchTotals();
+    // fetchTotals(); for git
   }
 }

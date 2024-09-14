@@ -1,11 +1,7 @@
-import 'dart:ffi';
-import 'dart:io';
-
-import 'package:finalprojectflutter/screenone.dart';
 import 'package:finalprojectflutter/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

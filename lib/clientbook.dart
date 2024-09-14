@@ -71,10 +71,11 @@ class _clientbookState extends State<clientbook> {
     );
   }
 
-  // Method to fetch client data from Firestore
   Future<List> getdata() async {
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('clienttable').get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('clienttable')
+        .where('Email', isEqualTo: widget.email)
+        .get();
     return querySnapshot.docs
         .map((doc) => doc.data() as Map<String, dynamic>)
         .toList();
@@ -135,7 +136,6 @@ class _clientbookState extends State<clientbook> {
     clientContactController.clear();
   }
 
-  // Registering client
   CollectionReference addUser =
       FirebaseFirestore.instance.collection('clienttable');
 

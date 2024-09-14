@@ -1,9 +1,13 @@
 import 'package:finalprojectflutter/clientbook.dart';
 import 'package:finalprojectflutter/screenone.dart';
+import 'package:finalprojectflutter/stockbook.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'businessbook.dart';
+import 'expensebook.dart';
 
 class screenfour extends StatefulWidget {
   var businessname;
@@ -43,12 +47,25 @@ class _screenfourState extends State<screenfour> {
                   )));
     }
     if (index == 1) {
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: (context) => addclient()));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => businessbook(
+                  businessname: widget.businessname, email: email)));
     }
     if (index == 2) {
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: (context) => clientdetails()));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  StockBook(businessname: widget.businessname, email: email)));
+    }
+    if (index == 3) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => expensebook(
+                  businessname: widget.businessname, email: email)));
     }
   }
 
@@ -73,15 +90,15 @@ class _screenfourState extends State<screenfour> {
               borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(20),
                   bottomLeft: Radius.circular(20))),
-          // backgroundColor: primarycolor,
+
           elevation: 10.00,
         ),
         body: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // Number of columns
+            crossAxisCount: 2,
             crossAxisSpacing: 30.0,
             mainAxisSpacing: 30.0,
-            childAspectRatio: 0.8, // Adjust the aspect ratio as needed
+            childAspectRatio: 0.8,
           ),
           padding: EdgeInsets.all(20.0),
           itemCount: items.length,
@@ -109,7 +126,7 @@ class _screenfourState extends State<screenfour> {
               accountName: Text(username),
               accountEmail: Text(email),
               currentAccountPicture: CircleAvatar(
-                  backgroundColor: Colors.orange, child: Image.network(photo)),
+                  backgroundColor: Colors.black, child: Image.network(photo)),
             ),
             ListTile(
               leading: Icon(Icons.home),

@@ -40,8 +40,7 @@ class _screenthreeState extends State<screenthree> {
                     ),
                   ),
                 ),
-                SizedBox(
-                    width: 8.0), // Add some space between TextField and Button
+                SizedBox(width: 8.0),
                 Container(
                   child: ElevatedButton(
                     onPressed: () {
@@ -63,16 +62,12 @@ class _screenthreeState extends State<screenthree> {
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold)),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.white, //background color of button
-                      side: BorderSide(
-                          width: 2,
-                          color: Colors.black), //border width and color
-                      elevation: 3, //elevation of button
+                      primary: Colors.white,
+                      side: BorderSide(width: 2, color: Colors.black),
+                      elevation: 3,
                       shape: RoundedRectangleBorder(
-                          //to set border radius to button
                           borderRadius: BorderRadius.circular(30)),
-                      padding:
-                          EdgeInsets.all(20), //content padding inside button
+                      padding: EdgeInsets.all(20),
                     ),
                   ),
                 ),
@@ -121,7 +116,6 @@ class _screenthreeState extends State<screenthree> {
     businessname.clear();
   }
 
-  //Resigtering Business
   CollectionReference addUser =
       FirebaseFirestore.instance.collection('Businesstable');
   Future<void> _registerBusiness() {
@@ -138,10 +132,11 @@ class _screenthreeState extends State<screenthree> {
         .catchError((_) => print('Something Error In registering User'));
   }
 
-  // Method to fetch business data from Firestore
   Future<List> getdata() async {
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('Businesstable').get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('Businesstable')
+        .where('Email', isEqualTo: widget.email)
+        .get();
     return querySnapshot.docs.map((doc) => doc.data()).toList();
   }
 }

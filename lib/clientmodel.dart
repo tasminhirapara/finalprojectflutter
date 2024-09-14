@@ -41,8 +41,9 @@ class ClientModel extends StatelessWidget {
                                 businessname: list[i]['businessname'],
                                 email: list[i]['Email'],
                                 clientnumber: list[i]['clientnumber'],
+                                clientname: list[i]['clientname'],
                               )));
-                  // Handle onTap if needed
+
                 },
               ),
             ),
@@ -110,7 +111,7 @@ class ClientModel extends StatelessWidget {
 
   Future<void> _deleteClient(String phoneNumber) async {
     try {
-      // Query to find the document with the matching phone number
+
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('clienttable')
           .where('clientnumber', isEqualTo: phoneNumber)
