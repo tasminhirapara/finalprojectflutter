@@ -18,7 +18,6 @@ class _screenoneState extends State<screenone> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     checkdata();
   }
@@ -63,7 +62,6 @@ class _screenoneState extends State<screenone> {
               child: ElevatedButton(
                 onPressed: () {
                   _handleSignIn(context); // for signin
-                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>test()));
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -73,7 +71,7 @@ class _screenoneState extends State<screenone> {
                       height: 30,
                       width: 30,
                     ),
-                    SizedBox(width: 10), // Adds spacing between icon and text
+                    SizedBox(width: 10),
                     Text(
                       "Sign in With Google",
                       style: TextStyle(
@@ -126,7 +124,6 @@ class _screenoneState extends State<screenone> {
           print("Logged in succesfully");
           String photo = googleaccount.photoUrl ??
               "https://static.vecteezy.com/system/resources/previews/000/593/472/original/vector-business-men-icon.jpg";
-
           logindata.setBool('tops', false);
           logindata.setString('username', googleaccount.displayName.toString());
           logindata.setString('email', googleaccount.email.toString());
@@ -146,7 +143,6 @@ class _screenoneState extends State<screenone> {
   }
 
   void checkdata() async {
-    logindata =
-        await SharedPreferences.getInstance(); //initialize sharedprefrence
+    logindata = await SharedPreferences.getInstance();
   }
 }

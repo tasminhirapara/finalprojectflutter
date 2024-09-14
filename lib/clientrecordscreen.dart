@@ -3,22 +3,25 @@ import 'package:flutter/material.dart';
 
 class RecordScreen extends StatefulWidget {
   final String businessname;
+  final String clientname;
   final String email;
   final String clientnumber;
 
-  RecordScreen(
-      {required this.businessname,
-      required this.email,
-      required this.clientnumber});
+  RecordScreen({
+    required this.businessname,
+    required this.email,
+    required this.clientnumber,
+    required this.clientname,
+  });
 
   @override
   _RecordScreenState createState() => _RecordScreenState();
 }
 
 class _RecordScreenState extends State<RecordScreen> {
-  TextEditingController _totalReceivedController = TextEditingController();
-  TextEditingController _totalPaidController = TextEditingController();
-  TextEditingController _totalController = TextEditingController();
+  TextEditingController totalReceivedController = TextEditingController();
+  TextEditingController totalPaidController = TextEditingController();
+  TextEditingController totalController = TextEditingController();
 
   @override
   void initState() {
@@ -43,9 +46,9 @@ class _RecordScreenState extends State<RecordScreen> {
     });
 
     setState(() {
-      _totalReceivedController.text = totalReceived.toString();
-      _totalPaidController.text = totalPaid.toString();
-      _totalController.text = (totalReceived - totalPaid).toString();
+      totalReceivedController.text = totalReceived.toString();
+      totalPaidController.text = totalPaid.toString();
+      totalController.text = (totalReceived - totalPaid).toString();
     });
   }
 
@@ -53,7 +56,7 @@ class _RecordScreenState extends State<RecordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Client Record'),
+        title: Text(widget.clientname),
         centerTitle: true,
       ),
       body: Padding(
@@ -65,7 +68,7 @@ class _RecordScreenState extends State<RecordScreen> {
               children: [
                 Expanded(
                   child: TextField(
-                    controller: _totalReceivedController,
+                    controller: totalReceivedController,
                     readOnly: true,
                     decoration: InputDecoration(
                       labelText: 'Total Received',
@@ -75,7 +78,7 @@ class _RecordScreenState extends State<RecordScreen> {
                 SizedBox(width: 10),
                 Expanded(
                   child: TextField(
-                    controller: _totalPaidController,
+                    controller: totalPaidController,
                     readOnly: true,
                     decoration: InputDecoration(
                       labelText: 'Total Paid',
@@ -85,7 +88,7 @@ class _RecordScreenState extends State<RecordScreen> {
                 SizedBox(width: 10),
                 Expanded(
                   child: TextField(
-                    controller: _totalController,
+                    controller: totalController,
                     readOnly: true,
                     decoration: InputDecoration(
                       labelText: 'Total',
@@ -116,7 +119,10 @@ class _RecordScreenState extends State<RecordScreen> {
                         subtitle: Text(
                             "Received: ${record['received']} | Paid: ${record['paid']}"),
                         trailing: IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
                           onPressed: () {
                             deleteRecord(record.id);
                           },

@@ -36,8 +36,7 @@ class _splashscreenState extends State<splashscreen> {
   }
 
   void checkdata() async {
-    logindata =
-        await SharedPreferences.getInstance(); // Initialize SharedPreferences
+    logindata = await SharedPreferences.getInstance();
     newuser = logindata.getBool('tops') ?? true;
 
     if (newuser == false) {
