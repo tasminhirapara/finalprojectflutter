@@ -115,6 +115,12 @@ class _RecordScreenState extends State<RecordScreen> {
                         title: Text("${record['date']} - ${record['time']}"),
                         subtitle: Text(
                             "Received: ${record['received']} | Paid: ${record['paid']}"),
+                        trailing: IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () {
+                            deleteRecord(record.id);
+                          },
+                        ),
                       );
                     },
                   );
@@ -236,6 +242,14 @@ class _RecordScreenState extends State<RecordScreen> {
       'description': description,
     });
 
-    // fetchTotals(); for git
+    fetchTotals();
+  }
+
+  Future<void> deleteRecord(String recordId) async {
+    await FirebaseFirestore.instance
+        .collection('clientrecord')
+        .doc(recordId)
+        .delete();
+    fetchTotals();
   }
 }
