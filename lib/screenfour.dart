@@ -175,27 +175,57 @@ class _screenfourState extends State<screenfour> {
               leading: Icon(Icons.remove_circle),
               title: Text("Remove Business"),
               onTap: () async {
-                try {
-                  QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-                      .collection('Businesstable')
-                      .where('businessname', isEqualTo: widget.businessname)
-                      .where('Email', isEqualTo: email)
-                      .get();
+                bool confirmDelete = await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Confirm Deletion'),
+                      content: Text(
+                          'Are you sure you want to delete this Business?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          },
+                          child: Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          },
+                          child: Text('Delete'),
+                        ),
+                      ],
+                    );
+                  },
+                );
 
-                  if (querySnapshot.docs.isNotEmpty) {
-                    await querySnapshot.docs.first.reference.delete();
-                    print('Client deleted successfully');
-                    Navigator.pushReplacement(
+                if (confirmDelete == true) {
+                  try {
+                    QuerySnapshot querySnapshot = await FirebaseFirestore
+                        .instance
+                        .collection('Businesstable')
+                        .where('businessname', isEqualTo: widget.businessname)
+                        .where('Email', isEqualTo: email)
+                        .get();
+
+                    if (querySnapshot.docs.isNotEmpty) {
+                      await querySnapshot.docs.first.reference.delete();
+                      print('Business deleted successfully');
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => screenthree(
-                                  email: email,
-                                )));
-                  } else {
-                    print('No client found with the phone number');
+                          builder: (context) => screenthree(
+                            email: email,
+                          ),
+                        ),
+                      );
+                    } else {
+                      print('No businessname found with the email');
+                    }
+                  } catch (e) {
+                    print('Failed to delete Business: $e');
                   }
-                } catch (e) {
-                  print('Failed to delete client: $e');
                 }
               },
             ),
