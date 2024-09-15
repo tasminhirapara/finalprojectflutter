@@ -114,10 +114,6 @@ class _screenfourState extends State<screenfour> {
             UserAccountsDrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.black,
-                // image: DecorationImage(
-                //   image: AssetImage("assets/drawer_bg.jpg"),
-                //   fit: BoxFit.cover,
-                // ),
               ),
               accountName: Text(username),
               accountEmail: Text(email),
