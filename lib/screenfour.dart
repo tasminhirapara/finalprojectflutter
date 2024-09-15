@@ -139,6 +139,39 @@ class _screenfourState extends State<screenfour> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.business_center),
+              title: Text("Change Business"),
+              onTap: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => screenthree(
+                              email: email,
+                            )));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.share),
+              title: Text("Share App"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.star),
+              title: Text("Rate Us"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.policy),
+              title: Text("Privacy Policy"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
               leading: Icon(Icons.remove_circle),
               title: Text("Remove Business"),
               onTap: () async {
