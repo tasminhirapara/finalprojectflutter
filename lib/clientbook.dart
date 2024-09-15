@@ -75,6 +75,7 @@ class _clientbookState extends State<clientbook> {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('clienttable')
         .where('Email', isEqualTo: widget.email)
+        .where('businessname', isEqualTo: widget.businessname)
         .get();
     return querySnapshot.docs
         .map((doc) => doc.data() as Map<String, dynamic>)

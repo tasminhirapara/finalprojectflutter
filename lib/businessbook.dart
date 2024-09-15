@@ -20,11 +20,6 @@ class _businessbookState extends State<businessbook> {
   ];
 
   void _onItemTap(BuildContext context, int index) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Clicked on ${items[index]['title']}'),
-      ),
-    );
     if (index == 0) {
       Navigator.push(
           context,
@@ -38,8 +33,8 @@ class _businessbookState extends State<businessbook> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  purchasescreen(businessname: widget.businessname, email: widget.email)));
+              builder: (context) => purchasescreen(
+                  businessname: widget.businessname, email: widget.email)));
     }
   }
 

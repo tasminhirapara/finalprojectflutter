@@ -41,9 +41,7 @@ class ClientModel extends StatelessWidget {
                                 businessname: list[i]['businessname'],
                                 email: list[i]['Email'],
                                 clientnumber: list[i]['clientnumber'],
-                                clientname: list[i]['clientname'],
                               )));
-
                 },
               ),
             ),
@@ -111,7 +109,6 @@ class ClientModel extends StatelessWidget {
 
   Future<void> _deleteClient(String phoneNumber) async {
     try {
-
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('clienttable')
           .where('clientnumber', isEqualTo: phoneNumber)

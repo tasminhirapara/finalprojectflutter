@@ -6,10 +6,11 @@ class RecordScreen extends StatefulWidget {
   final String email;
   final String clientnumber;
 
-  RecordScreen(
-      {required this.businessname,
-      required this.email,
-      required this.clientnumber});
+  RecordScreen({
+    required this.businessname,
+    required this.email,
+    required this.clientnumber,
+  });
 
   @override
   _RecordScreenState createState() => _RecordScreenState();
@@ -112,6 +113,12 @@ class _RecordScreenState extends State<RecordScreen> {
                     itemBuilder: (context, index) {
                       DocumentSnapshot record = snapshot.data!.docs[index];
                       return ListTile(
+                        trailing: IconButton(
+                          icon: Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            deleteclientrecored(record.id);
+                          },
+                        ),
                         title: Text("${record['date']} - ${record['time']}"),
                         subtitle: Text(
                             "Received: ${record['received']} | Paid: ${record['paid']}"),
@@ -236,6 +243,15 @@ class _RecordScreenState extends State<RecordScreen> {
       'description': description,
     });
 
-    // fetchTotals(); for git
+    fetchTotals();
+  }
+
+  Future<void> deleteclientrecored(String expenseId) async {
+    await FirebaseFirestore.instance
+        .collection('clientrecord')
+        .doc(expenseId)
+        .delete();
+
+    fetchTotals();
   }
 }

@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalprojectflutter/clientbook.dart';
 import 'package:finalprojectflutter/screenone.dart';
+import 'package:finalprojectflutter/screenthree.dart';
 import 'package:finalprojectflutter/stockbook.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,11 +34,6 @@ class _screenfourState extends State<screenfour> {
   ];
 
   void _onItemTap(BuildContext context, int index) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Clicked on ${items[index]['title']}'),
-      ),
-    );
     if (index == 0) {
       Navigator.push(
           context,
@@ -90,7 +87,6 @@ class _screenfourState extends State<screenfour> {
               borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(20),
                   bottomLeft: Radius.circular(20))),
-
           elevation: 10.00,
         ),
         body: GridView.builder(
@@ -143,11 +139,39 @@ class _screenfourState extends State<screenfour> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.remove_circle),
+              title: Text("Remove Business"),
+              onTap: () async {
+                try {
+                  QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+                      .collection('Businesstable')
+                      .where('businessname', isEqualTo: widget.businessname)
+                      .where('Email', isEqualTo: email)
+                      .get();
+
+                  if (querySnapshot.docs.isNotEmpty) {
+                    await querySnapshot.docs.first.reference.delete();
+                    print('Client deleted successfully');
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => screenthree(
+                                  email: email,
+                                )));
+                  } else {
+                    print('No client found with the phone number');
+                  }
+                } catch (e) {
+                  print('Failed to delete client: $e');
+                }
+              },
+            ),
+            ListTile(
               leading: Icon(Icons.logout),
               title: Text("Logout"),
               onTap: () async {
                 logindata.setBool('tops', true);
-                await _googleSignIn.signOut(); // for signout
+                await _googleSignIn.signOut();
                 Navigator.pushReplacement(context,
                     new MaterialPageRoute(builder: (context) => screenone()));
               },
